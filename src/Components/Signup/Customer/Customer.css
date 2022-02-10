@@ -1,0 +1,44 @@
+.card_color_customer.p-3 {
+    background-color: #f8cbad !important;
+}
+.btn_forgot {
+display: flex;
+}
+.customer{
+    padding: 5px 65px;
+    background-color: #f4b183 !important;
+    border-radius: 9px;
+    color: #fff;
+    border:1px solid #000;
+    cursor: pointer;
+}
+.card_color_customer_vender {
+    background-color: #dbdbdb !important;
+}
+.customer_vender {
+    padding: 5px 65px;
+    background-color: #ed7d31 !important;
+    border-radius: 9px;
+    color: #fff;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+.card_color_customer_admin {
+    background-color: #fde3f9 !important;
+}
+@media only screen and (min-width: 300px) and (max-width: 800px) {
+    .customer{
+        padding: 5px 15px;
+    
+        background-color: #f4b183 !important;
+        border-radius: 9px;
+        color: #fff;
+        border:1px solid #000;
+       
+        
+    }
+    .btn_forgot {
+        display: block;
+        }
+  
+  }

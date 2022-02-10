@@ -1,0 +1,45 @@
+.MuiDialog-scrollPaper {
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    display: block !important;
+
+}
+.MuiDialog-paperWidthSm {
+    max-width: 323px !important;
+}
+.MuiDialogContent-root {
+    flex: 1 1 auto;
+    padding: 8px 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #b4c7e7;
+}
+.MuiDialog-paperFullWidth {
+    width: calc(100% - 64px);
+    border-radius: 27px !important;
+}
+.about_data ul {
+    list-style: none;
+}
+li.li_data {
+    background-color: #4472c4;
+    color: #FFF;
+    padding: 9px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+li.li_data:hover {
+    background-color: #b9a1b5;
+    color: #FFF;
+    padding: 9px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+.MuiDialogContent-root {
+    border-radius: 28px;
+}
+.MuiPaper-root {
+   
+    background-color:none !important;
+}

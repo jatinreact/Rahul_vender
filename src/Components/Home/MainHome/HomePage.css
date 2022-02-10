@@ -1,0 +1,151 @@
+.table_vender_home{
+    background-color: #9dc3e6;
+    color: #FFF;
+    border-radius: 16px;
+    padding: 10px;
+}
+.search_area.col-md-12 {
+    background-color: #FFF;
+    /* margin: 13px; */
+    width: 50%;
+    padding: 7px 15px;
+}
+.home_table_card_color {
+    background-color: #4472c4 !important;
+}
+.new_arivals {
+    background-color: #ffc000;
+    padding: 8px 8px;
+    width: 50%;
+    border-radius: 12px;
+    text-align: center;
+    color: #FFF;
+    margin-top: 11px;
+}
+.new_arivalss {
+    background-color: #a9d18e;
+    padding: 8px 8px;
+    width: 50%;
+    border-radius: 12px;
+    text-align: center;
+    color: #FFF;
+    margin-top: 11px;
+}
+.click_arival{
+    float: right !important;
+}
+.photo_table {
+    background-color: #a9d18e;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+color: #fff;
+    text-align: center;
+}
+.photo_tablew {
+    background-color: #f4b183   ;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+color: #fff;
+    text-align: center;
+}
+.table_span_home {
+    font-size: 20px;
+}
+.ws_vender_img.p-3 {
+    position: relative;
+}
+span.demo_vedio {
+    position: absolute;
+    left: 0;
+    padding: 28px 10px;
+    color: blue;
+    width: 68%;
+    text-align: center;
+}
+.home_table_card_colorrr {
+    background-color: #dbdbdb !important;
+}
+/* input[type="text"], .hh {    
+    background-color :#a9d18e;
+    color: #FFF;
+    
+  } */
+.table_home_youtube {
+    background-color: #7c7c7c;
+    color: #FFF;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.table_home_cus_login {
+    background-color: #c55a11;
+    color: #FFF;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.new_arivalss{
+    background-color: #ffc000;
+    padding: 8px 8px;
+    /* width: 50%; */
+    border-radius: 12px;
+    text-align: center;
+    color: #FFF;
+    margin-top: 11px;
+}
+.home_table_card_color_ta {
+    background-color: #fde3f9 !important;
+}
+.customer_list.pl-3 {
+    border: 1px solid;
+    width: 31%;
+    text-align: center;
+    margin-top: 0px;
+    border-radius: 5px;
+}
+.new_arivalss_home {
+    background-color: #a9d18e;
+    padding: 8px 8px;
+    width: 50%;
+    border-radius: 12px;
+    text-align: center;
+    color: #FFF;
+    margin-top: 11px;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 800px) {
+    .home_padding {
+        margin-top: 19%;
+    }
+    .click_arival{
+        float: none;
+        width: 100%;
+    }
+    span.demo_vedio {
+        position: absolute;
+        left: 19px;
+        padding: 23px 9px;
+        color: black;
+        width: 68%;
+        text-align: center;
+    }
+    .new_arivalss{
+      width: 100% !important;
+    }
+    .customer_list.pl-3 {
+       
+        width: 100% !important;
+        margin-bottom: 3px;
+       
+    }
+}  

@@ -1,0 +1,180 @@
+.account_signup{
+    color: rgb(118, 198, 230);
+    cursor: pointer;
+}
+.account_signup:hover{
+    color: rgb(247, 27, 74);
+  
+}
+svg {
+    width: 143px !important;
+    height: 55px !important;
+}
+.Customer_log_arrival {
+    background-color: #c55a11 !important;
+    border-radius: 9px !important;
+    color: #FFF;
+    padding: 4px;
+    padding: 9px 32px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+input[type="purchase"] {
+    background-color: #dae3f3 !important;
+    color: #FFF !important;
+    padding: 9px !important;
+    border-radius: 24% !important;
+    border: navajowhite;
+}
+.photo_table_shopping {
+    background-color: #8faadc;
+    color: #FFF;
+    padding: 4px 12px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+}
+.home_table_card_color_shopping {
+    background-color: #f8cbad !important;
+}
+.shiping_list{
+    padding: 7px 96px;
+}
+.photo_table_cs {
+    background-color: #afabab;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+.photo_table_csss {
+    background-color: #dae3f3;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+.photo_table_blue {
+    background-color: #2e75b6;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+.photo_table_blue_cs {
+    background-color: #8faadc;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+.home_table_card_color_Customer_vs_vender {
+    background-color: #dbdbdb !important;
+}
+.home_table_card_color_Customer_inv_list {
+    background-color: #f8cbad !important;
+}
+.photo_table_gree {
+    background-color: #28a745;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+
+.withoutgrid {
+    background-color: #28a745;
+    padding: 12px 10px;
+  
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+   
+    color: #fff;
+    /* text-align: center; */
+}
+.hyper {
+    background-color: #f4b183;
+    color: #FFF;
+    padding: 7px 25px;
+}
+.home_table_card_color_ta {
+    background-color: #fde3f9 !important;
+}
+input#vehicle1 {
+    height: 53px;
+    width: 39px;
+    padding-left: 3px;
+}
+.home_table_card_distributer {
+    background-color: #4472c4 !important;
+}
+.home_table_final_inv {
+    background-color: #dbdbdb !important;
+}
+.home_table_final_inv_data {
+    background-color: #e6e6e6 !important;
+}
+.printer_print{
+    background-color: #FFF;
+    padding: 8px;
+}
+.shipping_carrier {
+    font-size: 20px;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 3px;
+    background-color: #dbdbdb !important;
+}
+.photo_dist_vend {
+    background-color: #5b9bd5;
+    padding: 6px 3px;
+    width: 90%;
+    border-radius: 10px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+.border_bottom{
+    border-bottom: 1px solid;
+}
+.saveandaddnewitem{
+   
+        background-color: #5b9bd5;
+        color: #FFF;
+        padding: 6px 21px;
+        border-radius: 8px;
+    
+
+}
+.customer_distri {
+    padding: 5px 65px;
+    background-color: #a9d18e !important;
+    border-radius: 9px;
+    color: #fff;
+    border: 1px solid #000;
+    cursor: pointer;
+}

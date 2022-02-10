@@ -1,0 +1,51 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Card_shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  border-radius: 16px !important;
+}
+.Component_main_grid {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.pricing_button {
+  background-color: #001230 !important;
+  color: #fff !important;
+  padding: 10px 38px !important;
+  border-radius: 11px !important;
+}
+.home_padding {
+
+  margin-top: 7%;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 800px) {
+  .home_padding {
+
+    margin-top: 14%;
+  }
+  
+  }
+    
