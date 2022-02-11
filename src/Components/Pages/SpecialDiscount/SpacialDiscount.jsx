@@ -33,6 +33,17 @@ const SpacialDiscount = (props) => {
 
     }, [isupdated]);
 
+
+    
+
+    const wholesaler =(row)=>{
+
+        console.log("wholesellerid",row.wholesaler._id)
+        const wholeselerlid = row.wholesaler._id
+        
+
+       props.history.push("/customer-shopping-list", {data:wholeselerlid})
+    }
     return (
         <>
             <section>
@@ -64,7 +75,7 @@ const SpacialDiscount = (props) => {
                                             <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.description}</span></div></div></Grid>
                                             <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home ' style={{cursor:"pointer"}} >{row.wholesaler?.name}</span></div></div></Grid>
                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.distributer?.area} </span></div></div></Grid>
-                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home border_bottom' onClick={() => props.history.push("/customer-shopping-list")}>{row.distributer?.name}<i class="fa fa-arrow-down"></i></span></div></div></Grid>
+                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home border_bottom' style={{cursor:"pointer"}}  onClick={()=> wholesaler(row)}>{row.distributer?.name}<i class="fa fa-arrow-down"></i></span></div></div></Grid>
                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.discount} </span></div></div></Grid>
                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.date}</span></div></div></Grid>
                                   

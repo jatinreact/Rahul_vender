@@ -12,7 +12,7 @@ import { showNotificationMsz } from "../utils/Validation";
 
 const CustomerShoppingList = (props) => {
     const token = localStorage.getItem('token');
-    
+
 
     const [isupdated, setisupdated] = useState(false)
     const [isloading, setisloading] = useState(false)
@@ -26,8 +26,8 @@ const CustomerShoppingList = (props) => {
     const [indexvalue, setindexvalue] = useState("")
     const [typeshow, settypeshow] = useState("")
     const [morelabal, setmorelabal] = useState(true)
-    const [pickup,setpickup] =useState("")
-    console.log("grdgr",pickup)
+    const [pickup, setpickup] = useState("")
+    console.log("grdgr", pickup)
 
     /////add shopin api state
 
@@ -39,16 +39,16 @@ const CustomerShoppingList = (props) => {
 
     const [categorybyiddata, setcategorybyiddata] = useState([])
     const [categoryitembyid, setcategoryitembyid] = useState("")
-    const [TrueDataArr,setTrueDataArr] =useState([])
-    
+    const [TrueDataArr, setTrueDataArr] = useState([])
 
-    console.log("wholeid>>>>>>>>>>>>>>>>",props.location.state.data)
+
+    console.log("wholeid>>>>>>>>>>>>>>>>", props.location.state.data)
     const idd = props.location.state.data;
     const sidebaropen = () => {
 
         setCustomersidebar(!Customersidebar)
     }
-  
+
 
 
 
@@ -57,15 +57,15 @@ const CustomerShoppingList = (props) => {
     useEffect(() => {
         try {
             let url = getBaseUrl() + `api/categorybywholesalerid/${idd}`;
-          
+
 
             axios.get(url).then(
                 (res) => {
                     setitemCategoryArry(res.data.categorybywholesalerid);
                     setcategorybyiddata(res.data.categorybywholesalerid._id)
-                    console.log("makecategry id",res.data.categorybywholesalerid._id)
+                    console.log("makecategry id", res.data.categorybywholesalerid._id)
 
-               
+
                     // showNotificationMsz(res.data.msg, "success");
                 },
                 (error) => {
@@ -82,17 +82,17 @@ const CustomerShoppingList = (props) => {
 
 
 
-    const nice = (row)=>{
-        console.log("happy",row._id)
+    const nice = (row) => {
+        console.log("happy", row._id)
         const iddd = row._id
         setcategoryitembyid(iddd)
 
     }
 
-        useEffect(() => {
+    useEffect(() => {
         try {
             let url = getBaseUrl() + `api/productcategorybyId/${categoryitembyid}`;
-          
+
 
             axios.get(url).then(
                 (res) => {
@@ -110,11 +110,11 @@ const CustomerShoppingList = (props) => {
                         item.actualPrice = 0
                         item.newQty = 0
                     });
-                  
-                   setcategorybyiddata(temp)
-                console.log("actulprice:::",temp)
 
-               
+                    setcategorybyiddata(temp)
+                    console.log("actulprice:::", temp)
+
+
                     // showNotificationMsz(res.data.msg, "success");
                 },
                 (error) => {
@@ -140,17 +140,17 @@ const CustomerShoppingList = (props) => {
             let temp = {
                 wholeseler: venderid,
                 items: TrueDataArr,
-                select: !morelabal,
+                select: morelabal,
                 Qty: StoreQty,
                 total: newtotal,
-                pickup:pickup,
+                pickup: pickup,
 
             };
             let config = {
                 headers: { Authorization: `Bearer ${token}` }
-              };
+            };
             axios
-                .post(url, temp,config)
+                .post(url, temp, config)
                 .then(
                     (res) => {
                         console.log("response customer purchase :::", res);
@@ -158,7 +158,7 @@ const CustomerShoppingList = (props) => {
 
 
                         showNotificationMsz(res.data.msg, "success");
-                        props.history.push("/customer-purchace-order")
+                        // props.history.push("/customer-purchace-order")
 
                     },
 
@@ -184,20 +184,21 @@ const CustomerShoppingList = (props) => {
 
 
 
-    const finalprice = (e,row,index) => {
+    const finalprice = (e, row, index) => {
         console.log("jatin:::", row);
         console.log("value:::", e.target.value);
         console.log("price>>>>>>>>>>>>>>>>>:::", row.actualPrice);
         console.log("price>>>>>>>>>>>>>>>>>:::", row.price);
         categorybyiddata[index].actualPrice = row.price * e.target.value;
+        categorybyiddata[index].newQty =  e.target.value;
         setcategorybyiddata([...categorybyiddata])
         setnewtotal(row.actualPrice)
         setStoreQty(e.target.value)
-      
+
     }
 
-    const checkboxhandler = (e,row,index) =>{
-        console.log("checked????????",e.target.checked)
+    const checkboxhandler = (e, row, index) => {
+        console.log("checked????????", e.target.checked)
         // console.log("rowItemid????????",row.wholesaler?._id)
         setvenderid(row.wholesaler?._id)
         setitemid(row._id)
@@ -205,13 +206,11 @@ const CustomerShoppingList = (props) => {
         // const more_labal = row.select
         // console.log("fwefewfjatin>>>>>>>>>>",row.show)
         // setmorelabal(!more_labal)
-         categorybyiddata[index].show = e.target.checked;
-         setcategorybyiddata([...categorybyiddata])
-         
-
-         let dtaTrueDataArr=categorybyiddata.filter(item => item.show === true);
+        categorybyiddata[index].show = e.target.checked;
+        setcategorybyiddata([...categorybyiddata])
+        let dtaTrueDataArr = categorybyiddata.filter(item => item.show === true);
         setTrueDataArr(dtaTrueDataArr)
-         console.log("TrueDataArr",TrueDataArr )
+        console.log("TrueDataArr", TrueDataArr)
     }
 
 
@@ -243,7 +242,7 @@ const CustomerShoppingList = (props) => {
                                                     type="text"
                                                     class="form-control"
                                                     placeholder="Brand"
-                                                 
+
                                                 />
                                             </div></Grid>
                                         <Grid item md={2} xs={12}>
@@ -274,23 +273,24 @@ const CustomerShoppingList = (props) => {
                                         </Grid>
                                         <Grid item md={3} xs={12}>
                                             <div className=''>
-                                                <div className='mb-2' style={{ justifyContent: "center" }}><div className='photo_table_shopping'><span className='table_span_home'>Shipping<i class='fa fa-arrow-down pl-2' style={{ fontSize: "20px" }}></i>
-                                                    <div class="form-group">
+                                                {/* <div className='mb-2' style={{ justifyContent: "center" }}><div className='photo_table_shopping'><span className='table_span_home'>Shipping<i class='fa fa-arrow-down pl-2' style={{ fontSize: "20px" }}></i> */}
+                                                {/* <div class="form-group">
 
 
-                                                    </div>
-                                                    <select class="form-control" value={pickup} onChange={(e)=> 
-                                                        {
-                                                            setpickup(e.target.value)
-                                                            }}>
-                                                        <option>Select</option>
-                                                        <option value="Yes">Yes</option>
-                                                        <option value="Self Pick up">Self Pick up</option>
-                                                        <option value="Drop Off">Drop Off</option>
+                                                    </div> */}
 
-                                                    </select>
-                                                </span></div></div>
+
+                                                {/* </span></div></div> */}
                                             </div>
+                                            <select class="form-control" value={pickup} onChange={(e) => {
+                                                setpickup(e.target.value)
+                                            }}>
+                                                <option>Select</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="Self Pick up">Self Pick up</option>
+                                                <option value="Drop Off">Drop Off</option>
+
+                                            </select>
 
                                         </Grid>
                                         <Grid item md={3} xs={12}>
@@ -303,7 +303,7 @@ const CustomerShoppingList = (props) => {
                                                 </Grid>
                                                 <Grid item md={6} xs={12}>
                                                     <div className='' >
-                                                        <input type="number" class="form-control"  placeholder="$" />
+                                                        <input type="number" class="form-control" placeholder="$" />
                                                     </div>
                                                 </Grid>
                                             </Grid>
@@ -317,8 +317,8 @@ const CustomerShoppingList = (props) => {
                                     <div>
                                         <Grid className='Component_main_grid'>
                                             {itemCategoryArry?.map((row, index) => (
-                                                <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center", cursor: "pointer" }}><div className='photo_tablew'><span className='table_span_home'  onClick={(e) => nice(row)} value={row.category}>{row.category}</span></div></div></Grid> 
-                                                
+                                                <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center", cursor: "pointer" }}><div className='photo_tablew'><span className='table_span_home' onClick={(e) => nice(row)} value={row.category}>{row.category}</span></div></div></Grid>
+
                                             ))}
                                         </Grid>
                                     </div>
@@ -329,8 +329,8 @@ const CustomerShoppingList = (props) => {
                                         {categorybyiddata?.map((row, index) => (
                                             <Grid className='Component_main_grid'>
 
-                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'><img  style={{height:"70px",width:"80px"}} src={row.photo} /></span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><div className='mb-2' ><div className='text-center pl-1'><span className='' ><input type="checkbox" id="vehicle1" checked={row.show} onChange={(e)=> checkboxhandler(e,row,index)}/></span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'><img style={{ height: "70px", width: "80px" }} src={row.photo} /></span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='mb-2' ><div className='text-center pl-1'><span className='' ><input type="checkbox" id="vehicle1" checked={row.show} onChange={(e) => checkboxhandler(e, row, index)} /></span></div></div></Grid>
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.item}</span></div></div></Grid>
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.brand}</span></div></div></Grid>
                                                 <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.item}</span></div></div></Grid>
@@ -338,11 +338,11 @@ const CustomerShoppingList = (props) => {
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>Per</span></div></div></Grid>
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home' value={StoreQty}>{row.Qty}</span></div></div></Grid>
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.msrmt}</span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><input style={{ width: "80px" }} type="purchase" placeholder='Qty' 
-                                                onChange={(e)=> finalprice(e,row,index)} 
-                                                    
+                                                <Grid item md={1} xs={12}><input style={{ width: "80px" }} type="purchase" placeholder='Qty'
+                                                    onChange={(e) => finalprice(e, row, index)}
 
-                                         /></Grid>
+
+                                                /></Grid>
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>{row.actualPrice}</span></div></div></Grid>
 
                                             </Grid>

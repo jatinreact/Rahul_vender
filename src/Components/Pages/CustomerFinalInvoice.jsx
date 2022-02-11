@@ -30,7 +30,7 @@ const CustomerFinalInvoice = (props) => {
                                         </div>
                                         </div></Grid>
                                         <Grid item md={4} xs={12}> <div className="col-md-12 pb-3">
-                                            <h5 className='' style={{color:"#FFF"}}>Customer Invoices List</h5>
+                                            <h5 className='' style={{color:"#FFF"}}>Customer Invoices to WS Vender/Distributer</h5>
                                         </div></Grid>
                                         <Grid item md={3} xs={12}>
                                             <div className="col-md-12 pb-3">

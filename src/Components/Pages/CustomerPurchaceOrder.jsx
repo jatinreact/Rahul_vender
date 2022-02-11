@@ -16,12 +16,13 @@ const CustomerPurchaceOrder = (props) => {
     const [mobilesidebar, setmobilesidebar] = useState(false);
     const [Expandboxid, setExpandboxid] = useState("")
     const [venderdistbuterArry, setvenderdistbuterArry] = useState([])
-    const [newvenderid, setnewvenderid] = useState("")
-
+    const [shopingid, setshopingid] = useState("")
     const sidebaropen = () => {
         setmobilesidebar(!mobilesidebar)
     }
     const [Expendbox, setExpendbox] = useState(false)
+
+    const token = localStorage.getItem('token');
 
 
 
@@ -29,9 +30,12 @@ const CustomerPurchaceOrder = (props) => {
     useEffect(() => {
         try {
             let url = getBaseUrl() + "api/getshoping";
-
-            axios.get(url).then(
+            let config = {
+                headers: { Authorization: `Bearer ${token}` }
+              };
+            axios.get(url,config).then(
                 (res) => {
+                   
                     let temp = [];
                     res.data.shoping.map(
                         async (data) => {
@@ -40,7 +44,6 @@ const CustomerPurchaceOrder = (props) => {
                             temp.push(data);
                         }
                     );
-
                     setcustomerpurchasingArry(res.data.shoping);
                     console.log("customerpurchasevenderList:::", res.data.shoping);
                     // showNotificationMsz(res.data.msg, "success");
@@ -59,21 +62,23 @@ const CustomerPurchaceOrder = (props) => {
 
         try {
 
-            let url = getBaseUrl() + `api/getitembyvender/${newvenderid}`;
-
-            axios.get(url).then(
+            let url = getBaseUrl() + `api/getshopingbyid/${shopingid}`;
+            let config = {
+                headers: { Authorization: `Bearer ${token}` }
+              };
+            axios.get(url,config).then(
                 (res) => {
 
                     let temp = [];
-                    res.data.map(
+                    res.data.shoping.items.map(
                         async (data) => {
                             data["show"] = false;
                             //   await getuseranswerandrealAnswer(data, data.id);
                             temp.push(data);
                         }
                     );
-                    setvenderdistbuterArry(temp);
-                    console.log("customerpurchasevenderid:::", res.data);
+                    setvenderdistbuterArry(res.data.shoping.items);
+                    console.log("customeritemid:::", res.data.shoping.items);
                     // showNotificationMsz(res.data.msg, "success");
                 },
                 (error) => {
@@ -84,13 +89,13 @@ const CustomerPurchaceOrder = (props) => {
             //   showNotificationMsz(error, "danger");
         }
 
-    }, [newvenderid]);
+    }, [shopingid]);
 
 
     const handleexpandbox = (row, index) => {
-        console.log("row adta", row)
-        const datatt = row.vender._id;
-        setnewvenderid(datatt)
+        console.log("row adta", row._id)
+        const datatt = row._id;
+        setshopingid(datatt)
         customerpurchasingArry[
             index
         ].show = true;
@@ -98,10 +103,27 @@ const CustomerPurchaceOrder = (props) => {
             ...customerpurchasingArry,
         ]);
 
-        console.log("ghgjhj", customerpurchasingArry)
+        // console.log("ghgjhj", customerpurchasingArry)
 
 
     }
+
+
+    // const handleexpandbox = (row, index) => {
+    //     console.log("row adta", row)
+    //     const datatt = row.vender._id;
+    //     setnewvenderid(datatt)
+    //     customerpurchasingArry[
+    //         index
+    //     ].show = true;
+    //     setcustomerpurchasingArry([
+    //         ...customerpurchasingArry,
+    //     ]);
+
+    //     console.log("ghgjhj", customerpurchasingArry)
+
+
+    // }
 
 
 
@@ -158,7 +180,7 @@ const CustomerPurchaceOrder = (props) => {
                                             <Grid item md={2} xs={12}><h6 className='text-center'>Date</h6></Grid>
                                             <Grid item md={2} xs={12}><h6 className='text-center'>Customer Name</h6></Grid>
                                             <Grid item md={3} xs={12}><h6 className='text-center'>Address</h6></Grid>
-                                            <Grid item md={1} xs={12}><h6 className='text-center'>Contact Info</h6></Grid>
+                                            <Grid item md={1} xs={12}><h6 className='text-center'>Phone</h6></Grid>
                                             <Grid item md={1} xs={12}><h6 className='text-center'>Area</h6></Grid>
                                         </Grid>
                                     </div>
@@ -171,58 +193,74 @@ const CustomerPurchaceOrder = (props) => {
 
 
                                                         {row.show === false ? (
-                                                            <div className='photo_table' onClick={() => handleexpandbox(row, index)} >
+                                                            <div className='photo_table' 
+                                                            onClick={() => handleexpandbox(row, index)}
+                                                            // onClick={() => handleexpandbox(row, index)} 
+                                                            
+                                                            
+                                                            
+                                                            >
                                                                 <span className='table_span_home'  >
                                                                     <i class="fa fa-plus"></i>
                                                                 </span>
                                                             </div>
-                                                        ) : (<div className='photo_table_blue'
-                                                            onClick={() => {
-                                                                customerpurchasingArry[
-                                                                    index
-                                                                ].show = false;
-                                                                setcustomerpurchasingArry([
-                                                                    ...customerpurchasingArry,
-                                                                ]);
-                                                            }} ><span className='photo_table_blue'  >
+                                                        ) : (
+                                                        
+                                                        <div className='photo_table_blue'
+                                                        onClick={() => {
+                                                            customerpurchasingArry[
+                                                                index
+                                                            ].show = false;
+                                                            setcustomerpurchasingArry([
+                                                                ...customerpurchasingArry,
+                                                            ]);
+                                                        }}
+                                                            
+                                                            ><span className='photo_table_blue'  >
                                                                 <i className="fa fa-minus-square"></i>
-                                                            </span></div>)}
+                                                            </span></div>
+                                                           )} 
                                                     </div>
                                                 </Grid>
 
                                                 <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>PO#</span></div></div></Grid>
                                                 <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>mm/dd/yy</span></div></div></Grid>
-                                                <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.vender?.vendername}</span></div></div></Grid>
-                                                <Grid item md={3} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>Address</span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.vender?.number}</span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.vender?.area}</span></div></div></Grid>
+                                                <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.customer?.username}</span></div></div></Grid>
+                                                <Grid item md={3} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.customer?.Address}</span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.customer?.phone}</span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.customer?.state}</span></div></div></Grid>
 
                                             </Grid>
 
 
-                                            <Expand open={row.show}>
+                                            <Expand
+                                            
+                                            // open={row.show}
+                                            open={row.show}
+                                            
+                                            >
                                                 <div>
-                                                    {venderdistbuterArry?.map(() => (
+                                               {venderdistbuterArry?.map((row,index) => ( 
                                                         <Grid className='Component_main_grid'>
 
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img src={row.item?.photo} /></span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img height={{height:"70px" ,width:"70px"}} src={row.item?.photo} /></span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.item}</span></div></div></Grid>
                                                             <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.brand}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.brand}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>$Price</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.description}</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.price}</span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Per</span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.Qty}</span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.msrmt}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>{row.item?.msrmt}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>{row.item?.price}</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>{row?.newQty}</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>{row?.actualPrice}</span></div></div></Grid>
 
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='edit_delete'><span className='table_span_home' style={{ fontSize: "30px" }}><i class="fa fa-pencil pr-1"></i><i class="fa fa-times" style={{ color: "red" }}></i></span></div></div></Grid>
                                                         </Grid>
-                                                    ))}
+                                                    ))} 
                                                     <div>
                                         <Grid className='Component_main_grid'>
                                             <Grid item md={3} xs={12}></Grid>
-                                            <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_blue_cs'><span className='table_span_home'>Shopping<i class="fa fa-arrow-down ml-1 mt-1"></i></span></div></div></Grid>
+                                            <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_blue_cs'><span className='table_span_home'>{row.pickup}<i class="fa fa-arrow-down ml-1 mt-1"></i></span></div></div></Grid>
                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>$Price</span></div></div></Grid>
                                             <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_blue_cs'><span className='table_span_home'>Invoice Sub-Total</span></div></div></Grid>
                                             <Grid item md={3} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_blue_cs'><span className='table_span_home'>Address</span></div></div></Grid>

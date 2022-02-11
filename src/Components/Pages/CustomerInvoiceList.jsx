@@ -17,85 +17,10 @@ const CustomerPurchaceOrder = (props) => {
     const [newvenderid, setnewvenderid] = useState("")
     const [finalinvoiceArry, setfinalinvoiceArry] = useState([])
 
-    useEffect(() => {
-        try {
-            let url = getBaseUrl() + "api/getinvoice";
+  
+    
 
-            axios.get(url).then(
-                (res) => {
-                    let temp = [];
-                    res.data.getinvoice.map(
-                        async (data) => {
-                            data["show"] = false;
-                            //   await getuseranswerandrealAnswer(data, data.id);
-                            temp.push(data);
-                        }
-                    );
-
-                    setcustomerinvoiceArry(res.data.getinvoice);
-                    console.log("customerinvoiceArry:::", res.data.getinvoice);
-                    // showNotificationMsz(res.data.msg, "success");
-                },
-                (error) => {
-                    //   showNotificationMsz(error, "danger");
-                }
-            );
-        } catch (error) {
-            //   showNotificationMsz(error, "danger");
-        }
-    }, [isupdated]);
-
-
-    useEffect(() => {
-
-        try {
-
-            let url = getBaseUrl() + `api/getinvoicebyid/${newvenderid}`;
-
-            axios.get(url).then(
-                (res) => {
-
-                    // let temp = [];
-                    // res.data.map(
-                    //     async (data) => {
-                    //         data["show"] = false;
-                    //         //   await getuseranswerandrealAnswer(data, data.id);
-                    //         temp.push(data);
-                    //     }
-                    // );
-                    ///setvenderdistbuterArry(temp);
-                    setfinalinvoiceArry(res.data.getinvoicebyid);
-                    console.log("customerpurchasevenderiddwfwefwe:::", res.data.getinvoicebyid);
-                    // showNotificationMsz(res.data.msg, "success");
-                },
-                (error) => {
-                    //   showNotificationMsz(error, "danger");
-                }
-            );
-        } catch (error) {
-            //   showNotificationMsz(error, "danger");
-        }
-
-    }, [newvenderid]);
-
-    const handleexpandbox = (row, index) => {
-        console.log("row adta", row)
-        const datatt = row.vender._id;
-        console.log("row adta", row.vender._id)
-        setnewvenderid(datatt)
-        customerinvoiceArry[
-            index
-        ].show = true;
-        setcustomerinvoiceArry([
-            ...customerinvoiceArry,
-        ]);
-
-        console.log("ghgjhj", customerinvoiceArry)
-
-
-    }
-
-
+    
 
 
     const sidebaropen = () => {
@@ -103,6 +28,54 @@ const CustomerPurchaceOrder = (props) => {
         setCustomersidebar(!Customersidebar)
     }
     const [Expendbox, setExpendbox] = useState(false)
+
+
+
+ //for Payment
+ const proceeds = (totalamount) => {
+    var options = {
+      key: "rzp_live_03JJx3iLMJehpq",
+      amount: "100",
+      currency: "INR",
+      name: "Vendors",
+      description: "Transaction",
+      image:
+        "https://media.istockphoto.com/vectors/ecommerce-buying-vector-illustration-logo-in-flat-style-vector-id1133937441?k=20&m=1133937441&s=612x612&w=0&h=ivoew5ZA8soZVQ3pf8XphV6RmHygkeMWXS4Rd4z4Zcc=",
+      order_id: "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: function (response) {
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+      },
+      // "prefill": {
+      //     "name": "Gaurav Kumar",
+      //     "email": "gaurav.kumar@example.com",
+      //     "contact": "9999999999"
+      // },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      // alert(response.error.reason);
+      // alert(response.error.metadata.order_id);
+      // alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+  };
+
+
+
+
+
     return (
         <>
             <section>
@@ -159,28 +132,23 @@ const CustomerPurchaceOrder = (props) => {
                                             <Grid item md={1} xs={12}><h6 className='text-center'>Action</h6></Grid>
                                         </Grid>
                                     </div>
-                                    {customerinvoiceArry.map((row, index) => (
+                                  
 
 
                                         <div>
                                             <Grid className='Component_main_grid'>
-                                                <Grid item md={1} xs={12}>
+                                            <Grid item md={1} xs={12}>
                                                     <div className='d-flex mb-2' style={{ justifyContent: "center" }}>
 
 
-                                                        {row.show === false ? (
-                                                            <div className='photo_table' onClick={() => handleexpandbox(row, index)} >
+                                                        {Expendbox === false ? (
+                                                            <div className='photo_table' onClick={() =>  setExpendbox(!Expendbox)}>
                                                                 <span className='table_span_home'  >
                                                                     <i class="fa fa-plus"></i>
                                                                 </span>
                                                             </div>
                                                         ) : (<div className='photo_table_blue' onClick={() => {
-                                                            customerinvoiceArry[
-                                                                index
-                                                            ].show = false;
-                                                            setcustomerinvoiceArry([
-                                                                ...customerinvoiceArry,
-                                                            ]);
+                                                            setExpendbox(!Expendbox)
                                                         }} ><span className='photo_table_blue'  >
                                                                 <i className="fa fa-minus-square"></i>
                                                             </span></div>)}
@@ -196,29 +164,29 @@ const CustomerPurchaceOrder = (props) => {
 
                                                 <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>Inv.#</span></div></div></Grid>
                                                 <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>DD/mm/yy</span></div></div></Grid>
-                                                <Grid item md={4} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.vender?.vendername}</span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>{row.vender?.number}</span></div></div></Grid>
+                                                <Grid item md={4} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>Venders Name</span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table'><span className='table_span_home'>636625</span></div></div></Grid>
                                                 <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_blue_cs'><span className='table_span_home'>$Sub Total</span></div></div></Grid>
-                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_gree'><span className='table_span_home' >Accept</span></div></div></Grid>
+                                                <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_gree'><span className='table_span_home' style={{cursor:"pointer"}} onClick={proceeds}>Accept</span></div></div></Grid>
 
 
                                             </Grid>
 
 
 
-                                            <Expand open={row.show}>
+                                            <Expand open={Expendbox}>
                                                 <div>
-                                                    {finalinvoiceArry.map((row, index) => (
+                                                 
                                                         <Grid className='Component_main_grid'>
 
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img style={{ height: "60px", width: "60px" }} src={row.item?.photo} /></span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img style={{ height: "60px", width: "60px" }} src="Photo" /></span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>item #</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.brand}</span></div></div></Grid>
-                                                            <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.item}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.price}</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.Qty}</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Brand</span></div></div></Grid>
+                                                            <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Item</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Price</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>4</span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Per</span></div></div></Grid>
-                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>{row.item?.msrmt}</span></div></div></Grid>
+                                                            <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>1</span></div></div></Grid>
                                                             <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>Qty.</span></div></div></Grid>
                                                             <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>$Total</span></div></div></Grid>
 
@@ -226,9 +194,50 @@ const CustomerPurchaceOrder = (props) => {
 
 
                                                         </Grid>
-                                                    ))}
-
+                                                 
                                                 </div>
+                                                <div>
+                                                 
+                                                 <Grid className='Component_main_grid'>
+
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img style={{ height: "60px", width: "60px" }} src="Photo" /></span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>item #</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Brand</span></div></div></Grid>
+                                                     <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Item</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Price</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>4</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Per</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>1</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>Qty.</span></div></div></Grid>
+                                                     <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>$Total</span></div></div></Grid>
+
+
+
+
+                                                 </Grid>
+                                          
+                                         </div>
+                                         <div>
+                                                 
+                                                 <Grid className='Component_main_grid'>
+
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'><img style={{ height: "60px", width: "60px" }} src="Photo" /></span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>item #</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Brand</span></div></div></Grid>
+                                                     <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Item</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Price</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>4</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>Per</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_cs'><span className='table_span_home'>1</span></div></div></Grid>
+                                                     <Grid item md={1} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>Qty.</span></div></div></Grid>
+                                                     <Grid item md={2} xs={12}><div className='d-flex mb-2' style={{ justifyContent: "center" }}><div className='photo_table_csss'><span className='table_span_home'>$Total</span></div></div></Grid>
+
+
+
+
+                                                 </Grid>
+                                          
+                                         </div>
                                                 <div>
                                                     <Grid className='Component_main_grid'>
 
@@ -248,7 +257,9 @@ const CustomerPurchaceOrder = (props) => {
                                             </Expand>
 
                                         </div>
-                                    ))}
+
+                                        
+                                 
 
 
 

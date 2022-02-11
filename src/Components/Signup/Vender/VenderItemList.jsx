@@ -141,7 +141,7 @@ const VenderItemList = (props) => {
                                                 </Grid>
                                                 <Grid item md={8} xs={12}>
                                                     <div className='' >
-                                                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="$" />
+                                                        <input type="number" class="form-control"  placeholder="$" />
                                                     </div>
                                                 </Grid>
                                             </Grid>

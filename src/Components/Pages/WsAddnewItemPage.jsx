@@ -457,6 +457,7 @@ const WsAddnewItemPage = (props) => {
                                                             setdistributer(e.target.value)
                                                         }}>
                                                         {DistributerArry.map((row, index) => (
+                                                            
                                                             <option value={row._id}>{row.name}</option>
                                                         ))}
                                                         
@@ -486,7 +487,7 @@ const WsAddnewItemPage = (props) => {
                                                         <option>select</option>
                                                         <option>Active</option>
                                                         <option>Discontinue</option>
-                                                        <option>Coming on</option>
+                                                        <option >Coming on</option>
                                                     </select>
                                                     
                                                     {activeError && (

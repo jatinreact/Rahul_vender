@@ -53,7 +53,7 @@ const CustomerSidebar = (props) => {
               <Link to="/WSVenderList"><li className='li_data' style={{cursor:"pointer"}}>Vendor List</li></Link>
               <Link to="/customer-shopping-list"><li className='li_data' style={{cursor:"pointer"}}>Shopping List</li></Link>
               <Link to="/customer-invoice-list"><li className='li_data' style={{cursor:"pointer"}}>Invoice List</li></Link>
-              <Link to="/customerSignup"><li className='li_data' style={{cursor:"pointer"}}>SignOut</li></Link>
+              <Link to="/"><li className='li_data' style={{cursor:"pointer"}}>SignOut</li></Link>
              
              
             </ul>
